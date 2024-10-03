@@ -2,6 +2,8 @@
 
 This guide will walk you through setting up CodeCov to track your test coverage and generate reports using a GitHub Action pipeline. It will make use of a forked [Django](https://www.djangoproject.com/) web framework [repository](https://github.com/django/django) as an example. Adjusting these steps will allow you to add CodeCov integration with any other application in A GitHub repository that already generates code coverage reports.
 
+---
+
 ## Why Use CodeCov?
 
 CodeCov is a powerful tool for visualizing code coverage and helping developers track the effectiveness of their tests. By integrating it into your CI/CD pipeline, you can ensure continuous monitoring of code coverage metrics across branches and pull requests, encouraging higher code quality.
@@ -16,18 +18,18 @@ CodeCov is a powerful tool for visualizing code coverage and helping developers 
 
 ## Set Up CodeCov
 
-1. **Create a CodeCov Account:**
+* **Create a CodeCov Account:**
 Sign up for a CodeCov account by following the official [quick start guide](https://docs.codecov.com/docs/quick-start). CodeCov integrates with platforms like GitHub, Bitbucket, and GitLab, allowing seamless integration into your development workflow.
 
-2. **Get Your CodeCov Upload Token:**
+* **Get Your CodeCov Upload Token:**
 Once you’ve created an account and connected your repository, obtain the unique upload token for your project. You’ll need this token to securely upload coverage reports to CodeCov.
 
-3. **Install the GitHub Application:**a
+* **Install the GitHub Application:**
 If you’re using GitHub, install the CodeCov GitHub [application](https://github.com/apps/codecov) and provide access to the repository you would like to manage. This will allow CodeCov to access your repository and provide automatic reporting on pull requests.
 
 ---
 
-## Generating a Coverage Report Locally
+## Generate Coverage Report Locally
 
 Once CodeCov is set up, the next step is to generate a coverage report locally to ensure everything works before automating it via GitHub Actions.
 
@@ -216,7 +218,7 @@ To automate coverage tracking, you’ll want to run CodeCov as part of your CI p
 
 Open the existing workflow configuration file at `.github/workflows/tests.yml` in your Django repository. This file will define the steps for running tests, generating coverage reports, and uploading those reports to CodeCov.
 
-### Define the Workflow
+### Edit the Workflow
 
 Below is the workflow configuration for the Django repository:
 
@@ -279,7 +281,7 @@ jobs:
       - run: npm test
 ```
 
-You'll need to make some simple additions to generate and upload the coverage report.
+You'll need to make some small changes additions to generate and upload the coverage report.
 
 Replace the the `Install and upgrade packaging tools` section with:
 
@@ -357,6 +359,8 @@ comment:
 This configuration sets a target coverage of 80% for both the entire project and individual patches, and specifies the layout for comments on pull requests.
 You can now commit these changes and view the changes in you CodeCov dashboard after the pipelines have completed.
 To see some more advanced usage of the CodeCov YAML, see the [documentation](https://docs.codecov.com/docs/codecov-yaml).
+
+---
 
 ## Additional Notes
 
