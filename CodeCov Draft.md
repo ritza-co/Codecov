@@ -1,12 +1,14 @@
 # CodeCov Integration Guide
 
-This guide will walk you through setting up CodeCov to track your test coverage and generate reports using a GitHub Action pipeline. It will make use of a forked [Django](https://www.djangoproject.com/) web framework [repository](https://github.com/django/django) as an example. Adjusting these steps will allow you to add CodeCov integration with any other application in A GitHub repository that already generates code coverage reports.
+This guide will walk you through setting up CodeCov to track your test coverage and generate reports using a GitHub Action pipeline. It will make use of a forked [Django](https://www.djangoproject.com/) web framework [repository](https://github.com/django/django) as an example. Adjusting these steps will allow you to add CodeCov integration with any other application in a GitHub repository that already generates code coverage reports.
+
+![CodeCov coverage report for django repo](./images/codecov-django-coverage.png)
 
 ---
 
 ## Why Use CodeCov?
 
-CodeCov is a powerful tool for visualizing code coverage and helping developers track the effectiveness of their tests. By integrating it into your CI/CD pipeline, you can ensure continuous monitoring of code coverage metrics across branches and pull requests, encouraging higher code quality.
+CodeCov is a tool for visualizing code coverage to help developers track the effectiveness of their tests. By integrating it into your CI/CD pipeline, you can ensure continuous monitoring of code coverage metrics across branches and pull requests, encouraging higher code quality.
 
 ## Prerequisites
 
@@ -18,14 +20,14 @@ CodeCov is a powerful tool for visualizing code coverage and helping developers 
 
 ## Set Up CodeCov
 
-* **Create a CodeCov Account:**
-Sign up for a CodeCov account by following the official [quick start guide](https://docs.codecov.com/docs/quick-start). CodeCov integrates with platforms like GitHub, Bitbucket, and GitLab, allowing seamless integration into your development workflow.
+* **Create a CodeCov Account:**  
+[Sign up](https://about.codecov.io/codecov-free-trial/) for a CodeCov account and follow the official [quick start guide](https://docs.codecov.com/docs/quick-start) which will walk you through creating an account and installing the GitHub application. CodeCov integrates with platforms like GitHub, Bitbucket, and GitLab, allowing seamless integration into your development workflow.
 
-* **Get Your CodeCov Upload Token:**
-Once you’ve created an account and connected your repository, obtain the unique upload token for your project. You’ll need this token to securely upload coverage reports to CodeCov.
+* **Install the GitHub Application:**  
+This guide will focus on using GitHub, install the CodeCov GitHub [application](https://github.com/apps/codecov) and provide access to the repository you would like to manage. This will allow CodeCov to access your repository and provide automatic reporting on pull requests.
 
-* **Install the GitHub Application:**
-If you’re using GitHub, install the CodeCov GitHub [application](https://github.com/apps/codecov) and provide access to the repository you would like to manage. This will allow CodeCov to access your repository and provide automatic reporting on pull requests.
+* **Get Your CodeCov Upload Token:**  
+Once you’ve created an account and connected your repository, obtain the upload token for your project. You’ll need this token to securely upload coverage reports to CodeCov.
 
 ---
 
@@ -47,18 +49,32 @@ cd django-repo
 
 ### Install Python Packages
 
+Create a new virtual environment:
+
+```bash
+python -m venv ~/venvs/django
+```
+
+Activate the virtual environment:
+
+```bash
+source ~/venvs/django/bin/activate
+```
+
 If you’re following along using the Django project, ensure packages are installed by running:
 
 ```bash
-python -m pip install -e .
+pip install -e .
 ```
+
+Otherwise ensure that all required packages to run the tests in your repository are installed.
 
 ### Install Test Dependencies
 
 Install the test dependencies with:
 
 ```bash
-python -m pip install -r tests/requirements/py3.txt
+pip install -r tests/requirements/py3.txt
 ```
 
 ### Install Coverage
@@ -66,7 +82,7 @@ python -m pip install -r tests/requirements/py3.txt
 Additionally, install the `coverage` package, which will generate the coverage reports:
 
 ```bash
-python -m pip install coverage
+pip install coverage
 ```
 
 ### Run Tests with Coverage
@@ -191,23 +207,6 @@ Placeholder for method-level coverage (empty in this example).
 * **number:** Line number in the source file
 * **hits:** Number of times the line was executed
 
-## Upload Coverage Report
-
-Now, upload the coverage report using CodeCov’s GitHub Action. Add this step to your GitHub Actions workflow:
-
-```yaml
-- name: Upload results to CodeCov
-    uses: codecov/codecov-action@v4
-    with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-```
-
-This step makes use of the CodeCov GitHub application to collect the coverage report and upload it to CodeCov so that it can be processed and the visualizations and reports generated.
-
-### View the Coverage Report on CodeCov
-
-Once the upload is successful, navigate to your CodeCov dashboard to view and analyze the coverage report in detail.
-
 ---
 
 ## Running CodeCov in a GitHub Action
@@ -301,7 +300,7 @@ Then edit the `Run Tests` step with:
   run: coverage run ./tests/runtests.py --settings=test_sqlite
 ```
 
-And add two final steps:
+Upload the coverage report using CodeCov’s GitHub Action. Add this step to your GitHub Actions workflow:
 
 ```yaml
 - name: Combine coverage reports
@@ -312,7 +311,11 @@ And add two final steps:
     token: ${{ secrets.CODECOV_TOKEN }}
 ```
 
-After these edits, the workflow will now install the `coverage` package, run the tests using `coverage`, combine any result files, generate an XML file, and upload that file to CodeCov, ready for inspection.
+This step makes use of the CodeCov GitHub application to collect the coverage report and upload it to CodeCov so that it can be processed into visualizations and reports.
+
+After these edits, the workflow will now additionally install the `coverage` package, run the tests using `coverage`, combine any result files, generate an XML file, and upload that file to CodeCov, ready for inspection.
+
+## Upload Coverage Report
 
 ### Commit and Push Your Changes
 
@@ -328,6 +331,8 @@ After creating the workflow file, commit and push your changes to trigger the wo
 
 Open the **Actions** tab in your GitHub repository to monitor the status of the CI pipeline. Make sure that all steps, especially the CodeCov upload, complete successfully.
 
+![completed job runs](./images/django-repo-actions-run.png)
+
 ### Verify Coverage Upload
 
 After the pipeline completes, check the CodeCov dashboard to verify that the coverage report was uploaded correctly.
@@ -336,36 +341,37 @@ After the pipeline completes, check the CodeCov dashboard to verify that the cov
 
 ## Configure CodeCov
 
-Add a simple CodeCov YAML configuration file to your project by following these steps:
+Add a CodeCov YAML configuration file to configure the views of your project in CodeCov.
 
-1. Create the CodeCov YAML File: Create a file named `codecov.yml` in the root directory of your project.
-
-2. Define the Configuration: Add the necessary configuration settings to the codecov.yml file. Below is an example configuration:
+* Create a file named `codecov.yml` in the root directory of your project
+* Add the necessary configuration settings to the `codecov.yml` file. Below is an example configuration:
 
 ```yaml
 coverage:
   status:
     project:
       default:
-        target: 80%
+        target: 30%
     patch:
       default:
-        target: 80%
+        target: 30%
 
 comment:
   layout: "reach, diff, flags, files"
 ```
 
-This configuration sets a target coverage of 80% for both the entire project and individual patches, and specifies the layout for comments on pull requests.
+This configuration sets a target coverage of 30% for both the entire project and individual patches, and specifies the layout for comments on pull requests.
+
+To ensure that there are no errors in the `codecov.yml` file, it is best to make use of the CodeCov VSCode [extension](https://marketplace.visualstudio.com/items?itemName=Codecov.codecov) to assist with validation.
+
+Install the extension and use the icon at the top of the page to run the validation. A notice will appear with the results.
+
+![CodeCov extension button to validate yaml file](./images/codecov-extension-validate.png)
+
+![CodeCov extension validate notice](./images/codecov-extension-validate-notice.png)
+
 You can now commit these changes and view the changes in you CodeCov dashboard after the pipelines have completed.
+
 To see some more advanced usage of the CodeCov YAML, see the [documentation](https://docs.codecov.com/docs/codecov-yaml).
 
 ---
-
-## Additional Notes
-
-* **CodeCov VSCode Extension**: If you’re using VSCode, the CodeCov extension is mainly for YAML validation and doesn’t provide any advanced functionality for coverage management.
-  
-* **CLI vs. GitHub Actions**: While both the CodeCov CLI and GitHub Actions perform similar tasks, they may behave slightly differently. Ensure consistency by testing both locally and in the CI environment.
-
-By following this guide, you’ll have CodeCov fully integrated into your development process, helping maintain high code quality through continuous monitoring of test coverage.
