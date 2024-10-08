@@ -244,6 +244,10 @@ Usually, the extension will automatically find your coverage report and use it t
 
 Open any source file in your project.
 You will see colored gutters indicating the coverage:
+
+* Green: Covered lines
+* Red: Uncovered line
+
 ![VSCode window with Coverage Gutters watch enabled for file](./images/coverage-gutters-extension-view.png)  
 
 ---
@@ -274,7 +278,7 @@ Codecov provides historical data and visualizations of coverage trends over time
 Codecov integrates with your CI/CD pipeline, automatically uploading coverage reports generated during your builds. It enforces coverage thresholds on pull requests, ensuring that new code does not decrease overall coverage.
 For example, you can configure Codecov to fail a pull request if the coverage drops below a certain percentage, ensuring that all new code is adequately tested.
 
-### Detailed Reports and Annotations
+### Reports and Annotations
 
 Codecov provides detailed coverage reports and annotations directly on GitHub pull requests. This allows reviewers to see which lines of code are covered or uncovered without leaving the GitHub interface.
 
@@ -291,7 +295,7 @@ Adjusting these steps will allow you to add Codecov integration with any other a
 **Create a Codecov Account:**  
 [Sign up](https://about.codecov.io/codecov-free-trial/) for a Codecov account and follow the official [quick start guide](https://docs.codecov.com/docs/quick-start) which will walk you through creating an account and installing the GitHub application. Codecov integrates with platforms like GitHub, Bitbucket, and GitLab, allowing seamless integration into your development workflow.
 
-**Install the GitHub Application:**  
+**Install the Codecov GitHub Application:**  
 This guide will focus on using GitHub, installing the Codecov GitHub [application](https://github.com/apps/codecov), and provide access to the repository you would like to manage. This will allow Codecov to access your repository and provide automatic reporting on pull requests. Click on the **Configure** button for the relevant repository and follow the instructions to connect to your GitHub using the Codecov Upload token displayed.
 
 ![Codecov Upload Token](./images/codecov-configure-django.png)
@@ -302,7 +306,6 @@ Once you’ve created an account and connected your repository, obtain the uploa
 ![Codecov Upload Token](./images/codecov-repo-secret.png)
 
 **Save the token in your GitHub repository settings:**
-
 Navigate to the **Settings** tab of your repository, select the **Secrets and variables** menu option and add the Codecov token as a **New repository secret**.
 
 ![Codecov Upload Token](./images/repo-secret-added.png)
@@ -471,5 +474,9 @@ Install the extension and use the icon at the top of the page to run the validat
 You can now commit these changes and view the changes in your Codecov dashboard after the pipelines have been completed.
 
 To see some more advanced usage of the Codecov YAML, see the [documentation](https://docs.codecov.com/docs/codecov-yaml).
+
+After you have made a commit or opened a pull request, you will be able to view the report when you navigate to the **Commits** tab in Codecov.
+
+![Codecov commit report](./images/codecov-commit-report.png)
 
 ---
