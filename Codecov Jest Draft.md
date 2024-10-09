@@ -130,7 +130,7 @@ You can customize Jest’s code coverage behavior using the `jest.config.js` fil
 
 ### Exclude Files and Directories
 
-If there are files or directories you want to exclude from coverage reports (e.g., configuration files, mocks, or utilities), you can use the coveragePathIgnorePatterns option:
+If there are files or directories you want to exclude from coverage reports (e.g., configuration files, mocks, or utilities), you can use the `coveragePathIgnorePatterns` option:
 
 ```js
 // jest.config.js
@@ -164,7 +164,7 @@ module.exports = {
 
 ### Coverage Report Types
 
-Jest supports multiple report types, such as text, html, lcov, and json. You can specify which reports Jest should generate using the coverageReporters option:
+Jest supports multiple report types, such as text, html, lcov, and json. You can specify which reports Jest should generate using the `coverageReporters` option:
 
 ```js
 // jest.config.js
@@ -202,7 +202,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run tests with coverage
-        run: npm test --coverage
+        run: npm test -- --coverage
 ```
 
 ---
@@ -211,9 +211,9 @@ jobs:
 
 Integrating Jest with Codecov enables you to track and visualize the code coverage metrics you generate over time. Codecov is a service that integrates with existing CI/CD pipelines, providing insights into your testing coverage.
 
-Below are the steps to set up and integrate Codecov with your Jest configuration.
+Below are the steps to set up and integrate Codecov with your existing Jest setup.
 
-### Set Up Codecov in Your Repository
+### Set Up Codecov for Your Repository
 
 First, [create](https://about.codecov.io/codecov-free-trial/) an account on Codecov and link it to your version control platform, refer to the [quick start guide](https://docs.codecov.com/docs/quick-start) for more details on these steps.  
 Codecov will generate a unique token for your project, which you will need to save as a **Repository Secret** to upload the coverage reports securely.
@@ -231,7 +231,7 @@ module.exports = {
 };
 ```
 
-Make sure the `coverageDirectory` is set to a location that your CI environment can access (usually, the default coverage folder works fine).
+**NOTE:** Make sure the `coverageDirectory` is set to a location that your CI environment can access (usually, the default coverage folder works fine).
 
 ### Add Codecov to Your CI Pipeline
 
@@ -271,7 +271,7 @@ Explanation of the steps:
 * **Run tests with coverage:** Executes your tests with the --coverage flag, generating the coverage report
 * **Upload results to Codecov:** Uses the Codecov GitHub application to send the coverage report
 
-**NOTE:** The value for ${{ secrets.CODECOV_TOKEN }} can be found in your Codecov project settings (store this token securely as a secret in your CI environment)
+**NOTE:** The value for ``${{ secrets.CODECOV_TOKEN }}`` can be found in your Codecov project settings (store this token securely as a secret in your CI environment).
 
 ### View Coverage Reports on Codecov
 
