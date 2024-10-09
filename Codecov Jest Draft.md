@@ -204,6 +204,12 @@ jobs:
 
 ## Conclusion
 
-Jest code coverage reports are powerful tools for enhancing your testing strategy and maintaining high code quality. By understanding how to set up, interpret, and optimize these reports, you can pinpoint gaps in your tests and ensure your codebase remains robust and reliable.
+Jest code coverage reports are powerful tools for enhancing your testing strategy and maintaining high code quality. By understanding how to set up, interpret, and optimize these reports, you can identify gaps in your tests and ensure your codebase remains reliable.
+
+### Additional Resources
+
+* [Jest](https://jestjs.io/)
+* [Jest Documentation](https://jestjs.io/docs/getting-started)
+* [Codecov](https://about.codecov.io/)
 
 This guide should give you a solid foundation in Jest code coverage, helping you implement best practices and achieve greater test coverage in your projects.
