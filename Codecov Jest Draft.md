@@ -49,6 +49,8 @@ npx jest --coverage
 
 This will generate a detailed code coverage report each time you run your tests.
 
+---
+
 ## Understanding the Coverage Report
 
 Once the tests run, Jest outputs a coverage summary to the console, and it creates a coverage directory in your project with an HTML report. Following is an explanation of what the outputs mean.
@@ -79,16 +81,16 @@ Time:        0.626 s, estimated 1 s
 Ran all test suites.
 ```
 
-* **Stmts:** Percentage of statements executed.
-* **Branch:** Percentage of branch paths (e.g., if/else conditions) tested.
-* **Funcs:** Percentage of functions called.
-* **Lines:** Percentage of lines executed.
+* **Stmts:** Percentage of statements executed
+* **Branch:** Percentage of branch paths (e.g., if/else conditions) tested
+* **Funcs:** Percentage of functions called
+* **Lines:** Percentage of lines executed
 
-Uncovered lines are listed on the right, helping you pinpoint areas that may need additional tests.
+Uncovered lines are listed on the right, helping you find areas that may need additional tests.
 
 ### HTML Report
 
-For a more detailed analysis, open the HTML report found in `coverage/lcov-report/index.html` in your browser. This visual representation allows you to:
+For a more detailed analysis, open the HTML report found at `coverage/lcov-report/index.html` in your browser. This visual representation allows you to:
 
 * Navigate through files and folders
 * See color-coded indicators showing covered (green) and uncovered (red) lines of code
@@ -118,13 +120,15 @@ Adding these tests can increase your statement, branch, and line coverage.
 
 ### Mock Dependencies
 
-For functions that rely on external APIs or other modules, use mocks to simulate different scenarios. Jest has powerful mocking capabilities through functions like jest.fn() and jest.mock(), which help test your code in isolation.
+For functions that rely on external APIs or other modules, use mocks to simulate different scenarios. Jest has useful mocking capabilities through functions like `jest.fn()` and `jest.mock()`, which help test your code in isolation.
 
-### Advanced Configuration for Jest Code Coverage
+---
+
+## Advanced Configuration for Jest Code Coverage
 
 You can customize Jest’s code coverage behavior using the `jest.config.js` file or configuration options within your `package.json`. Below are some useful settings.
 
-#### Exclude Files and Directories
+### Exclude Files and Directories
 
 If there are files or directories you want to exclude from coverage reports (e.g., configuration files, mocks, or utilities), you can use the coveragePathIgnorePatterns option:
 
@@ -139,7 +143,7 @@ module.exports = {
 };
 ```
 
-#### Set Thresholds
+### Set Thresholds
 
 To enforce a minimum level of coverage, use the coverageThreshold option. If coverage falls below the defined threshold, Jest will fail the test run:
 
@@ -158,7 +162,7 @@ module.exports = {
 };
 ```
 
-#### Coverage Report Types
+### Coverage Report Types
 
 Jest supports multiple report types, such as text, html, lcov, and json. You can specify which reports Jest should generate using the coverageReporters option:
 
@@ -180,36 +184,138 @@ If you use a CI/CD service like GitHub Actions, GitLab CI, or Jenkins, you can a
 
 ```yaml
 name: CI
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-        
+        uses: actions/checkout@v4
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
-          
+          node-version: '22'
       - name: Install dependencies
         run: npm install
-        
       - name: Run tests with coverage
-        run: npm test -- --coverage
+        run: npm test --coverage
 ```
 
 ---
 
+## Codecov Integration with Jest Coverage Reports
+
+Integrating Jest with Codecov enables you to track and visualize the code coverage metrics you generate over time. Codecov is a service that integrates with existing CI/CD pipelines, providing insights into your testing coverage.
+
+Below are the steps to set up and integrate Codecov with your Jest configuration.
+
+### Set Up Codecov in Your Repository
+
+First, [create](https://about.codecov.io/codecov-free-trial/) an account on Codecov and link it to your version control platform, refer to the [quick start guide](https://docs.codecov.com/docs/quick-start) for more details on these steps.  
+Codecov will generate a unique token for your project, which you will need to save as a **Repository Secret** to upload the coverage reports securely.
+
+### Generate Coverage Reports with Jest
+
+Ensure Jest is generating reports in a format compatible with Codecov. By default, Jest produces `lcov` reports, which Codecov can read. Update your Jest configuration (jest.config.js) if necessary:
+
+```js
+// jest.config.js
+module.exports = {
+  collectCoverage: true,
+  coverageDirectory: "coverage",
+  coverageReporters: ["text", "lcov", "json", "html"]
+};
+```
+
+Make sure the `coverageDirectory` is set to a location that your CI environment can access (usually, the default coverage folder works fine).
+
+### Add Codecov to Your CI Pipeline
+
+In your CI configuration file (e.g., GitHub Actions, GitLab CI, or Jenkins), install the Codecov uploader and pass the coverage report to Codecov. Below is an example of a GitHub Actions `workflow.yml`:
+
+```yaml
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'        
+      - name: Install dependencies
+        run: npm install 
+      - name: Run tests with coverage
+        run: npm test -- --coverage
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+```
+
+Explanation of the steps:
+
+* **Checkout code:** Retrieves your repository code
+* **Set up Node.js:** Configures the environment with the desired Node.js version
+* **Run tests with coverage:** Executes your tests with the --coverage flag, generating the coverage report
+* **Upload results to Codecov:** Uses the Codecov GitHub application to send the coverage report
+
+**NOTE:** The value for ${{ secrets.CODECOV_TOKEN }} can be found in your Codecov project settings (store this token securely as a secret in your CI environment)
+
+### View Coverage Reports on Codecov
+
+After setting up Codecov in your CI pipeline, every new build will upload coverage data. You can access the reports through your Codecov dashboard, where you’ll find:
+
+* A summary of your project’s coverage metrics.
+* A breakdown of coverage per file, showing which files are under-tested.
+* Visualizations of coverage changes between commits, branches, or pull requests.
+
+### Enforcing Coverage Thresholds
+
+Codecov lets you enforce minimum coverage thresholds, so if coverage drops below a set percentage, your build can fail automatically. Add a `codecov.yml` file to your repository’s root to configure these settings:
+
+```yaml
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+    patch:
+      default:
+        target: 80%
+```
+
+In this example:
+
+* **project:** sets the target for overall project coverage.
+* **patch:** sets the target for new code introduced in pull requests.
+
+These thresholds ensure that new changes do not decrease the code coverage below acceptable levels.
+
 ## Conclusion
 
 Jest code coverage reports are powerful tools for enhancing your testing strategy and maintaining high code quality. By understanding how to set up, interpret, and optimize these reports, you can identify gaps in your tests and ensure your codebase remains reliable.
+
+Integrating Codecov with Jest not only provides visibility into your test coverage but also helps enforce standards and prevents regressions. By setting up Codecov, you leverage an automated solution that highlights coverage gaps, monitors code quality trends, and ensures that your codebase remains robust over time.
+
+By following these steps, you’ll have a streamlined process for managing code coverage, ensuring your tests are comprehensive and your codebase stays reliable.
 
 ### Additional Resources
 
 * [Jest](https://jestjs.io/)
 * [Jest Documentation](https://jestjs.io/docs/getting-started)
 * [Codecov](https://about.codecov.io/)
+* Codecov GitHub Application
 
 This guide should give you a solid foundation in Jest code coverage, helping you implement best practices and achieve greater test coverage in your projects.
