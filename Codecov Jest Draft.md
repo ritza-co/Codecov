@@ -2,7 +2,7 @@
 
 If you’re using [Jest](https://jestjs.io/) for testing in your JavaScript projects, you may have heard about code coverage reports. These reports give insight into how much of your codebase is being tested, and can be a valuable tool for improving the quality and reliability of your code.
 
-In this article, we’ll walk through how to set up, generate, and interpret Jest code coverage reports and extend their functionality to better share and make decisions. All to help you maximize the effectiveness of your tests.
+In this article, we’ll walk through how to set up, generate, and interpret Jest code coverage reports and extend their functionality to better share and make decisions. This will all help you to maximize the effectiveness of your tests.
 
 ## What is Code Coverage?
 
@@ -39,6 +39,12 @@ You can modify the test script in your `package.json` file to include coverage b
 }
 ```
 
+Which will run the tests and generate the coverage report when you run:
+
+```bash
+npm test
+```
+
 ### Run Jest with Coverage Flag
 
 Alternatively, you can run the command directly from your terminal:
@@ -53,7 +59,7 @@ This will generate a detailed code coverage report each time you run your tests.
 
 ## Understanding the Coverage Report
 
-Once the tests run, Jest outputs a coverage summary to the console, and it creates a coverage directory in your project with an HTML report. Following is an explanation of what the outputs mean.
+Once the tests run, Jest outputs a coverage summary to the console, and it creates a coverage directory in your project with an HTML report. Following is an explanation of what the outputs mean. ++
 
 ### Console Output
 
@@ -121,6 +127,8 @@ Adding these tests can increase your statement, branch, and line coverage.
 ### Mock Dependencies
 
 For functions that rely on external APIs or other modules, use mocks to simulate different scenarios. Jest has useful mocking capabilities through functions like `jest.fn()` and `jest.mock()`, which help test your code in isolation.
+
+Find more information about Mock Functions in Jest, refer to the Jest [documentation](https://jestjs.io/docs/mock-functions).
 
 ---
 
@@ -220,7 +228,7 @@ Codecov will generate a unique token for your project, which you will need to sa
 
 ### Generate Coverage Reports with Jest
 
-Ensure Jest is generating reports in a format compatible with Codecov. By default, Jest produces `lcov` reports, which Codecov can read. Update your Jest configuration (jest.config.js) if necessary:
+Ensure Jest is generating reports in a format compatible with Codecov. By default, Jest produces `lcov` reports, which Codecov can read. Update your Jest configuration (`jest.config.js`) if necessary:
 
 ```js
 // jest.config.js
@@ -235,7 +243,7 @@ module.exports = {
 
 ### Add Codecov to Your CI Pipeline
 
-In your CI configuration file (e.g., GitHub Actions, GitLab CI, or Jenkins), install the Codecov uploader and pass the coverage report to Codecov. Below is an example of a GitHub Actions `workflow.yml`:
+In your GitHub Actions CI configuration file, use the Codecov application to pass the coverage report to Codecov. Below is an example of a GitHub Actions `workflow.yml`:
 
 ```yaml
 name: CI
@@ -277,9 +285,21 @@ Explanation of the steps:
 
 After setting up Codecov in your CI pipeline, every new build will upload coverage data. You can access the reports through your Codecov dashboard, where you’ll find:
 
-* A summary of your project’s coverage metrics.
-* A breakdown of coverage per file, showing which files are under-tested.
-* Visualizations of coverage changes between commits, branches, or pull requests.
+* A summary of your project’s coverage metrics
+* A breakdown of coverage per file, showing which files are under-tested
+* Visualizations of coverage changes between commits, branches, or pull requests
+
+![Image of the Jest coverage report UI](./images/Jest/jest-codecov-dashboard.png)
+
+### Pull Request Reports
+
+After you have installed the GitHub application and connected your Repo to Codecov, you will see the a message when you open you next pull request to the `main` branch.
+
+![Image of the Jest coverage report UI](./images/Jest/jest-codecov-first-pr.png)
+
+And every subsequent pull request that is opened will have a comment added by the Codecov bot that gives a quick summary of your coverage.
+
+![Image of the Jest coverage report UI](./images/Jest/jest-codecov-report-pr.png)
 
 ### Enforcing Coverage Thresholds
 
