@@ -1,4 +1,4 @@
-# Generate Code Coverage Reports with Jest
+# Code Coverage Reports with Jest
 
 If you’re using [Jest](https://jestjs.io/) for testing in your JavaScript projects, you may have heard about code coverage reports. These reports give insight into how much of your codebase is being tested, and can be a valuable tool for improving the quality and reliability of your code.
 
@@ -102,7 +102,7 @@ For a more detailed analysis, open the HTML report found at `coverage/lcov-repor
 * See color-coded indicators showing covered (green) and uncovered (red) lines of code
 * Inspect each file for specific areas where tests are missing
 
-![Image of the Jest coverage report UI](./images/Jest/jest_html_report.png)
+![Image of the Jest coverage report UI](./images/Jest/jest-html-report.png)
 
 ---
 
@@ -293,7 +293,7 @@ After setting up Codecov in your CI pipeline, every new build will upload covera
 
 ### Pull Request Reports
 
-After you have installed the GitHub application and connected your Repo to Codecov, you will see the a message when you open you next pull request to the `main` branch.
+After you have installed the GitHub application and connected your repo to Codecov, you will see the a message when you open you next pull request to the `main` branch.
 
 ![Image of the Jest coverage report UI](./images/Jest/jest-codecov-first-pr.png)
 
@@ -322,6 +322,8 @@ In this example:
 * **patch:** sets the target for new code introduced in pull requests.
 
 These thresholds ensure that new changes do not decrease the code coverage below acceptable levels.
+
+---
 
 ## Conclusion
 
