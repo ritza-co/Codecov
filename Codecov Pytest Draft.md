@@ -32,11 +32,11 @@ pip install pytest pytest-cov
 To run your tests with coverage enabled, use the command with the following format:
 
 ```bash
-pytest --cov=<your_package_name> --cov-report=<format>
+pytest --cov=<your_package_name> --cov-report=<output_format>
 ```
 
 * **--cov=<your_package_name>:** Specifies the package you want to measure coverage for
-* **--cov-report=<format>:** Specify the format in which the report should be generated
+* **--cov-report=<output_format>:** Specify the format in which the report should be generated
 
 For example:
 
@@ -126,17 +126,17 @@ After setting up Codecov in your CI pipeline, every new build will upload covera
 * A breakdown of coverage per file, showing which files are under-tested
 * Visualizations of coverage changes between commits, branches, or pull requests
 
-![Image of the Jest coverage report UI](./images/Jest/jest-codecov-dashboard.png)
+![Image of the Jest coverage report UI](./images/codecov-pytest-dashboard.png)
 
 ### Pull Request Reports
 
 After you have installed the GitHub application and connected your repo to Codecov, you will see the a message when you open you next pull request to the `main` branch.
 
-![Image of the Jest coverage report UI](./images/Jest/jest-codecov-first-pr.png)
+![Image of the Jest coverage report UI](./images/pytest-codecov-first-pr.png)
 
 And every subsequent pull request that is opened will have a comment added by the Codecov bot that gives a quick summary of your coverage.
 
-![Image of the Jest coverage report UI](./images/Jest/jest-codecov-report-pr.png)
+![Image of the Jest coverage report UI](./images/codecov-pytest-report-pr.png)
 
 ### Enforcing Coverage Thresholds
 
