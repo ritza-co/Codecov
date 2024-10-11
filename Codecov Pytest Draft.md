@@ -1,8 +1,8 @@
 # Code Coverage Reports with Pytest
 
-If you’re using pytest for testing in your Python projects, you may have heard about code coverage reports. These reports provide insight into how much of your codebase is being tested and can be a valuable tool for improving the quality and reliability of your code.
+If you’re using `pytest` for testing in your Python projects, you may have heard about code coverage reports. These reports provide insight into how much of your codebase is being tested and can be a valuable tool for improving the quality and reliability of your code.
 
-In this article, we’ll walk through how to set up, generate, and interpret pytest code coverage reports and extend their functionality to better share and make decisions. This will help you maximize the effectiveness of your tests.
+In this article, we’ll walk through how to set up, generate, and interpret `pytest` code coverage reports and extend their functionality to better share and make decisions. This will help you maximize the effectiveness of your tests.
 
 ## What is Code Coverage?
 
@@ -56,7 +56,7 @@ To generate HTML reports that provide a more detailed view of your coverage, you
 pytest --cov=myapp --cov-report=xml
 ```
 
-This will create an htmlcov directory containing an html report you can open in your browser for deeper analysis.
+This will create an `htmlcov` directory containing an `HTML` report you can open in your browser for deeper analysis.
 
 ![html coverage report](./images/pytest/codecov-pytest-coverage-html.png)
 
@@ -64,9 +64,7 @@ This will create an htmlcov directory containing an html report you can open in 
 
 ## Codecov Integration with Pytest Coverage Reports
 
-Integrating pytest with Codecov enables you to track and visualize the code coverage metrics you generate over time. Codecov is a service that integrates with existing CI/CD pipelines, providing insights into your testing coverage.
-
-Below are the steps to set up and integrate Codecov with your existing Jest setup.
+Integrating `pytest` with Codecov enables you to track and visualize the code coverage metrics you generate over time. Codecov is a service that integrates with existing CI/CD pipelines, providing insights into your testing coverage.
 
 ### Set Up Codecov for Your Repository
 
@@ -126,17 +124,17 @@ After setting up Codecov in your CI pipeline, every new build will upload covera
 * A breakdown of coverage per file, showing which files are under-tested
 * Visualizations of coverage changes between commits, branches, or pull requests
 
-![Image of the Jest coverage report UI](./images/pytest/codecov-pytest-dashboard.png)
+![Image of the pytest coverage report UI](./images/pytest/codecov-pytest-dashboard.png)
 
 ### Pull Request Reports
 
 After you have installed the GitHub application and connected your repo to Codecov, you will see the a message when you open you next pull request to the `main` branch.
 
-![Image of the Jest coverage report UI](./images/pytest/pytest-codecov-first-pr.png)
+![Image of the pytest coverage report UI](./images/pytest/pytest-codecov-first-pr.png)
 
 And every subsequent pull request that is opened will have a comment added by the Codecov bot that gives a quick summary of your coverage.
 
-![Image of the Jest coverage report UI](./images/pytest/codecov-pytest-report-pr.png)
+![Image of the pytest coverage report UI](./images/pytest/codecov-pytest-report-pr.png)
 
 ### Enforcing Coverage Thresholds
 
