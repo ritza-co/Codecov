@@ -8,11 +8,11 @@ It will also show you how to add functionality to these code coverage tools by u
 
 **[Coverage Gutters:](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters)** A VS Code extension that displays code coverage information directly in your editor, showing which lines are covered by tests and which are not.
 
-![Coverage Gutters display in VSCode](./images/coverage-gutters-extension-view.png)  
+![Coverage Gutters display in VSCode](.//images/Django/coverage-gutters-extension-view.png)  
 
 **[Codecov:](https://about.codecov.io/)** A tool that tracks code coverage over time, integrates with your CI/CD pipeline, and helps share coverage reports with your team.
 
-![Codecov demo repo landing page](./images/codecov-demo-landing.png)
+![Codecov demo repo landing page](.//images/Django/codecov-demo-landing.png)
 
 By the end of this guide, you will:
 
@@ -223,7 +223,7 @@ The Coverage Gutters extension for VSCode allows you to view code coverage direc
 Open VSCode.
 Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window.
 Search for Coverage Gutters and click Install.
-![Install Coverage Gutters Extension View](./images/coverage-gutters-extension-install-view.png)
+![Install Coverage Gutters Extension View](.//images/Django/coverage-gutters-extension-install-view.png)
 
 ### Point Coverage Gutters to coverage files
 
@@ -239,7 +239,7 @@ coverage xml
 Open the Command Palette by pressing `Ctrl+Shift+P`.
 Type `Coverage Gutters: Display Coverage` and select it.
 
-![VSCode command pallette with 'Coverage Gutters: Display Coverage' entered](./images/coverage-gutters-extension-display.png)
+![VSCode command pallette with 'Coverage Gutters: Display Coverage' entered](.//images/Django/coverage-gutters-extension-display.png)
 
 If the extension was unable to find your coverage file, and you have generated one, you will be prompted to select the file path at this step.
 
@@ -253,7 +253,7 @@ You will see colored gutters indicating the coverage:
 * Green: Covered lines
 * Red: Uncovered line
 
-![VSCode window with Coverage Gutters watch enabled for file](./images/coverage-gutters-extension-view.png)  
+![VSCode window with Coverage Gutters watch enabled for file](.//images/Django/coverage-gutters-extension-view.png)  
 
 ---
 
@@ -287,7 +287,7 @@ This section will walk you through setting up Codecov to track your test coverag
 
 Adjusting these steps will allow you to add Codecov integration with any other application in a GitHub repository that already generates code coverage reports.
 
-![Codecov coverage report for django repo](./images/codecov-django-coverage.png)
+![Codecov coverage report for django repo](.//images/Django/codecov-django-coverage.png)
 
 ---
 
@@ -299,17 +299,17 @@ Adjusting these steps will allow you to add Codecov integration with any other a
 **Install the Codecov GitHub Application:**
 This guide will focus on using GitHub, installing the Codecov GitHub [application](https://github.com/apps/codecov), and provide access to the repository you would like to manage. This will allow Codecov to access your repository and provide automatic reporting on pull requests. Click on the **Configure** button for the relevant repository and follow the instructions to connect to your GitHub using the Codecov Upload token displayed.
 
-![Codecov Upload Token](./images/codecov-configure-django.png)
+![Codecov Upload Token](.//images/Django/codecov-configure-django.png)
 
 **Find Your Codecov Upload Token:**
 Once you’ve created an account and connected your repository, obtain the upload token for your project. You’ll need this token to securely upload coverage reports to Codecov.
 
-![Codecov Upload Token](./images/codecov-repo-secret.png)
+![Codecov Upload Token](.//images/Django/codecov-repo-secret.png)
 
 **Save the token in your GitHub repository settings:**
 Navigate to the **Settings** tab of your repository, select the **Secrets and variables** menu option and add the Codecov token as a **New repository secret**.
 
-![Codecov Upload Token](./images/repo-secret-added.png)
+![Codecov Upload Token](.//images/Django/repo-secret-added.png)
 
 ### Running Codecov in a GitHub Action
 
@@ -433,7 +433,7 @@ After creating the workflow file, commit and push your changes to trigger the wo
 
 Open the **Actions** tab in your GitHub repository to monitor the status of the CI pipeline. Make sure that all steps, especially the Codecov upload, are completed successfully.
 
-![completed job runs](./images/django-repo-actions-run.png)
+![completed job runs](.//images/Django/django-repo-actions-run.png)
 
 #### Verify Coverage Upload
 
@@ -468,9 +468,9 @@ To ensure that there are no errors in the `codecov.yml` file, it is best to make
 
 Install the extension and use the icon at the top of the page to run the validation. A notice will appear with the results.
 
-![Codecov extension button to validate yaml file](./images/codecov-extension-validate.png)
+![Codecov extension button to validate yaml file](.//images/Django/codecov-extension-validate.png)
 
-![Codecov extension validate notice](./images/codecov-extension-validate-notice.png)
+![Codecov extension validate notice](.//images/Django/codecov-extension-validate-notice.png)
 
 You can now commit these changes and view the changes in your Codecov dashboard after the pipelines have been completed.
 
@@ -478,6 +478,6 @@ To see some more advanced usage of the Codecov YAML, see the [documentation](htt
 
 After you have made a commit or opened a pull request, you will be able to view the report when you navigate to the **Commits** tab in Codecov.
 
-![Codecov commit report](./images/codecov-commit-report.png)
+![Codecov commit report](.//images/Django/codecov-commit-report.png)
 
 ---

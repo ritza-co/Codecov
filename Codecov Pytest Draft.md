@@ -58,7 +58,7 @@ pytest --cov=myapp --cov-report=xml
 
 This will create an htmlcov directory containing an html report you can open in your browser for deeper analysis.
 
-![html coverage report](./images/codecov-pytest-coverage-html.png)
+![html coverage report](./images/pytest/codecov-pytest-coverage-html.png)
 
 ---
 
@@ -126,17 +126,17 @@ After setting up Codecov in your CI pipeline, every new build will upload covera
 * A breakdown of coverage per file, showing which files are under-tested
 * Visualizations of coverage changes between commits, branches, or pull requests
 
-![Image of the Jest coverage report UI](./images/codecov-pytest-dashboard.png)
+![Image of the Jest coverage report UI](./images/pytest/codecov-pytest-dashboard.png)
 
 ### Pull Request Reports
 
 After you have installed the GitHub application and connected your repo to Codecov, you will see the a message when you open you next pull request to the `main` branch.
 
-![Image of the Jest coverage report UI](./images/pytest-codecov-first-pr.png)
+![Image of the Jest coverage report UI](./images/pytest/pytest-codecov-first-pr.png)
 
 And every subsequent pull request that is opened will have a comment added by the Codecov bot that gives a quick summary of your coverage.
 
-![Image of the Jest coverage report UI](./images/codecov-pytest-report-pr.png)
+![Image of the Jest coverage report UI](./images/pytest/codecov-pytest-report-pr.png)
 
 ### Enforcing Coverage Thresholds
 
