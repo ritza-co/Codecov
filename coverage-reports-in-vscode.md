@@ -12,7 +12,7 @@ It will also show you how to add functionality to these code coverage tools by u
 
 #### Coverage (Python Library)
 
-`Coverage.py` is a popular Python library for measuring code coverage. This library provides insights into which parts of your code are being executed during tests and which parts are not. It supports multiple report formats like terminal output, `HTML`, `XML`, and `JSON` for easy analysis, will show un/covered pieces of code and display the total coverage of an open file, all within your editor.
+`Coverage.py` is a popular Python library for measuring code coverage. This library provides insights into which parts of your code are being executed during tests and which parts are not. It supports multiple report formats like terminal output, `HTML`, `XML`, and `JSON` for analysis.
 
 This is the library which we will use to generate the coverage report which both Coverage Gutters and Codecov will use to display coverage information.
 
@@ -56,17 +56,15 @@ Activate the virtual environment:
 source ~/venvs/django/bin/activate
 ```
 
-Ensure packages are installed by running:
+Install the packages found in `package.json` with:
 
 ```bash
 pip install -e .
 ```
 
-Otherwise ensure that all required packages to run the tests in your repository are installed.
-
 ### Install Test Dependencies
 
-Install the test dependencies with:
+Install the packages the tests require to run:
 
 ```bash
 pip install -r tests/requirements/py3.txt
@@ -82,27 +80,33 @@ pip install coverage
 
 ### Run Tests with Coverage
 
-Run the test suite. Adjust the paths as necessary to fit your project’s structure:
+Run the tests using coverage:
 
 ```bash
 coverage run ./tests/runtests.py --settings=test_sqlite
 ```
 
-### Combine Coverage Data (if needed)
+This command uses `Coverage.py` to run the script that the Django repo uses to kick off the test runs with a test database specified by the `--settings=test_sqlite` flag.
 
-If you have multiple coverage reports (from different test runs), combine them into a single report:
-
-```bash
-coverage combine
-```
+You will notice the tests being run, once they are complete, a new file will have appeared in the root directory of the repository: `.coverge`. This file contains the coverage information gathered during the test runs. However, in this form the data is not very useful
 
 ### Generate Coverage Report
 
-Generate an XML-format coverage report by running:
+Generate a coverage report in `XML` format by running:
 
 ```bash
 coverage xml
 ```
+
+You will now see another new file that was created: `coverage.xml` this is the file that contains all the information that `coverage` gathered while the tests were run.
+
+If all you want is the total coverage of the project, you can open the generated `XML` file and find the `line-rate` attribute in the `coverage` tag:
+
+```xml
+<coverage version="7.6.1" timestamp="1729075463150" lines-valid="196017" lines-covered="64098" line-rate="0.327" branches-covered="0" branches-valid="0" branch-rate="0" complexity="0">
+```
+
+To better understand what the report contains, continue with the below or skip to the [Coverage Gutters Extension for VSCode](#coverage-gutters-extension-for-vscode) section to use the report to display coverage information in your VSCode editor.
 
 ### Understanding the Coverage Report
 
@@ -221,11 +225,10 @@ Search for Coverage Gutters and click Install.
 ### Point Coverage Gutters to coverage files
 
 Ensure you have generated a coverage report in a supported format (e.g., coverage.xml or lcov.info).
-If you haven't already, run the following commands to run the tests and generate an XML coverage report:
+If you haven't already, run the following commands from the root of the Django repo to run the tests and generate the `XML` coverage report:
 
 ```bash
 coverage run ./tests/runtests.py --settings=test_sqlite
-coverage combine
 coverage xml
 ```
 
@@ -248,6 +251,8 @@ You will see colored gutters indicating the coverage:
 
 ![VSCode window with Coverage Gutters watch enabled for file](.//images/Django/coverage-gutters-extension-view.png)  
 
+You can see the
+
 ---
 
 Everything up to this point is most likely sufficient for a lot of developers or small teams, however as projects grow, complexity increases and there are more hands at work on the codebase, this may not be sufficient any more.
@@ -262,13 +267,13 @@ Imagine you are working on a large project with multiple contributors and stakeh
 Codecov is a tool for visualizing code coverage to help developers track the effectiveness of their tests. By integrating it into your CI/CD pipeline, you can ensure continuous monitoring of code coverage metrics across branches and pull requests, encouraging higher code quality.
 
 * **Centralized Coverage Reports:**
-Codecov uploads coverage reports to a centralized dashboard accessible by all team members. This ensures everyone has access to the same coverage information without generating reports locally.
+Uploads coverage reports to a centralized dashboard accessible by all team members. This ensures everyone has access to the same coverage information without generating reports locally.
 
 * **Historical Data and Trends:**
-Codecov provides historical data and visualizations of coverage trends over time. This helps you track improvements or regressions in coverage across different commits and branches.
+Codecov provides historical data and visualizations of coverage trends over time. This helps you track improvements or regression in coverage across different commits and branches.
 
 * **CI/CD Integration:**
-Codecov integrates with your CI/CD pipeline, automatically uploading coverage reports generated during your builds. It enforces coverage thresholds on pull requests, ensuring that new code does not decrease overall coverage.
+It integrates with your CI/CD pipeline, automatically uploading coverage reports generated during your builds. It enforces coverage thresholds on pull requests, ensuring that new code does not decrease overall coverage.
 For example, you can configure Codecov to fail a pull request if the coverage drops below a certain percentage, ensuring that all new code is adequately tested.
 
 * **Reports and Annotations:**
@@ -290,17 +295,34 @@ Adjusting these steps will allow you to add Codecov integration with any other a
 **Install the Codecov GitHub Application:**
 This guide will focus on using GitHub, installing the Codecov GitHub [application](https://github.com/apps/codecov), and provide access to the repository you would like to manage. This will allow Codecov to access your repository and provide automatic reporting on pull requests. Click on the **Configure** button for the relevant repository and follow the instructions to connect to your GitHub using the Codecov Upload token displayed.
 
-![Codecov Upload Token](.//images/Django/codecov-configure-django.png)
+![Codecov Upload Token](./images/Django/codecov-configure-django.png)
 
 **Find Your Codecov Upload Token:**
 Once you’ve created an account and connected your repository, obtain the upload token for your project. You’ll need this token to securely upload coverage reports to Codecov.
 
-![Codecov Upload Token](.//images/Django/codecov-repo-secret.png)
+![Codecov Upload Token](./images/Django/codecov-repo-secret.png)
 
-**Save the token in your GitHub repository settings:**
-Navigate to the **Settings** tab of your repository, select the **Secrets and variables** menu option and add the Codecov token as a **New repository secret**.
+In order to test your setup or inspect your data in Codecov, use the Codecov [CLI](https://docs.codecov.com/docs/codecov-uploader) to upload the coverage report you generated earlier.
 
-![Codecov Upload Token](.//images/Django/repo-secret-added.png)
+### Codecov (CLI)
+
+Using the Codecov CLI, you can manually upload coverage reports to the service for visualization and analysis.
+
+#### Installing the Codecov CLI
+
+First, install the Codecov CLI in the `django` virtual environment created earlier:
+
+```bash
+pip install codecov-cli
+```
+
+Upload the report to Codecov using the CLI:
+
+```bash
+codecovcli --verbose upload-process --disable-search --fail-on-error -t 8b1108a3-5bfc-4633-8879-66a978a2a2a0  -F service -f coverage.xml
+```
+
+This will send the report to Codecov, where it can be visualized and analyzed on the platform’s dashboard.
 
 ### Running Codecov in a GitHub Action
 
@@ -410,6 +432,16 @@ After these edits, the workflow will now additionally install the `coverage` pac
 
 ### Upload Coverage Report
 
+#### Save the token in your GitHub repository settings
+
+You will need the upload token from Codecov that was displayed on the Codecov landing page. If you need to reference it again, you can find it by navigating to the **Configuration** tab and selecting the **General** menu item.
+
+![Codecov Upload Token](./images/Django/codecov-django-configuration-token.png)
+
+Navigate to the **Settings** tab of your repository, select the **Secrets and variables** menu option and add the Codecov token as a **New repository secret**.
+
+![Codecov Upload Token](./images/Django/repo-secret-added.png)
+
 #### Commit and Push Your Changes
 
 After creating the workflow file, commit and push your changes to trigger the workflow:
@@ -424,7 +456,7 @@ After creating the workflow file, commit and push your changes to trigger the wo
 
 Open the **Actions** tab in your GitHub repository to monitor the status of the CI pipeline. Make sure that all steps, especially the Codecov upload, are completed successfully.
 
-![completed job runs](.//images/Django/django-repo-actions-run.png)
+![completed job runs](./images/Django/django-repo-actions-run.png)
 
 #### Verify Coverage Upload
 
@@ -459,9 +491,9 @@ To ensure that there are no errors in the `codecov.yml` file, it is best to make
 
 Install the extension and use the icon at the top of the page to run the validation. A notice will appear with the results.
 
-![Codecov extension button to validate yaml file](.//images/Django/codecov-extension-validate.png)
+![Codecov extension button to validate yaml file](./images/Django/codecov-extension-validate.png)
 
-![Codecov extension validate notice](.//images/Django/codecov-extension-validate-notice.png)
+![Codecov extension validate notice](./images/Django/codecov-extension-validate-notice.png)
 
 You can now commit these changes and view the changes in your Codecov dashboard after the pipelines have been completed.
 
@@ -469,4 +501,4 @@ To see some more advanced usage of the Codecov YAML, see the [documentation](htt
 
 After you have made a commit or opened a pull request, you will be able to view the report when you navigate to the **Commits** tab in Codecov.
 
-![Codecov commit report](.//images/Django/codecov-commit-report.png)
+![Codecov commit report](./images/Django/codecov-commit-report.png)
