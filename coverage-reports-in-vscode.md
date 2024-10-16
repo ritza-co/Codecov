@@ -304,11 +304,9 @@ Once you’ve created an account and connected your repository, obtain the uploa
 
 In order to test your setup or inspect your data in Codecov, use the Codecov [CLI](https://docs.codecov.com/docs/codecov-uploader) to upload the coverage report you generated earlier.
 
-### Codecov (CLI)
+### Codecov CLI
 
 Using the Codecov CLI, you can manually upload coverage reports to the service for visualization and analysis.
-
-#### Installing the Codecov CLI
 
 First, install the Codecov CLI in the `django` virtual environment created earlier:
 
@@ -319,22 +317,28 @@ pip install codecov-cli
 Upload the report to Codecov using the CLI:
 
 ```bash
-codecovcli -t <token>  -F service -f coverage.xml
+codecovcli upload-process -t <token> -F service -f coverage.xml
 ```
 
 This will send the report to Codecov, where it can be visualized and analyzed on the platform’s dashboard.
 
-### Running Codecov in a GitHub Action
+### GitHub Actions
 
 To automate coverage tracking, you’ll want to run Codecov as part of your CI pipeline using GitHub Actions.
 
-#### GitHub Actions Workflow
+#### Save the token in your GitHub repository settings
 
-Open the existing workflow configuration file at `.github/workflows/tests.yml` in your Django repository. This file will define the steps for running tests, generating coverage reports, and uploading those reports to Codecov.
+You will need the upload token from Codecov that was displayed on the Codecov landing page. If you need to reference it again, you can find it by navigating to the **Configuration** tab and selecting the **General** menu item.
 
-#### Edit the Workflow
+![Codecov Upload Token](./images/Django/codecov-django-configuration-token.png)
 
-Below is the workflow configuration for the Django repository:
+Navigate to the **Settings** tab of your repository, select the **Secrets and variables** menu option and add the Codecov token as a **New repository secret**.
+
+![Codecov Upload Token](./images/Django/repo-secret-added.png)
+
+#### Edit Workflow
+
+Open the existing workflow configuration file at `.github/workflows/tests.yml` in your Django repository. This file will define the steps for running tests, generating coverage reports, and uploading those reports to Codecov:
 
 ```yaml
 name: Tests
@@ -428,19 +432,9 @@ Upload the coverage report using Codecov’s GitHub Action. Add this step to you
 
 This step makes use of the Codecov GitHub application to collect the coverage report and upload it to Codecov so that it can be processed into visualizations and reports.
 
-After these edits, the workflow will now additionally install the `coverage` package, run the tests using `coverage`, combine any result files, generate an XML file, and upload that file to Codecov, ready for inspection.
+After these edits, the workflow will now additionally install the `coverage` package, run the tests using `coverage`, combine any result files, generate an `XML` file, and upload that file to Codecov, ready for inspection.
 
 ### Upload Coverage Report
-
-#### Save the token in your GitHub repository settings
-
-You will need the upload token from Codecov that was displayed on the Codecov landing page. If you need to reference it again, you can find it by navigating to the **Configuration** tab and selecting the **General** menu item.
-
-![Codecov Upload Token](./images/Django/codecov-django-configuration-token.png)
-
-Navigate to the **Settings** tab of your repository, select the **Secrets and variables** menu option and add the Codecov token as a **New repository secret**.
-
-![Codecov Upload Token](./images/Django/repo-secret-added.png)
 
 #### Commit and Push Your Changes
 
@@ -452,7 +446,7 @@ After creating the workflow file, commit and push your changes to trigger the wo
  git push origin main
  ```
 
-#### Monitor the GitHub Actions Pipeline
+#### Monitor GitHub Actions Pipeline
 
 Open the **Actions** tab in your GitHub repository to monitor the status of the CI pipeline. Make sure that all steps, especially the Codecov upload, are completed successfully.
 
@@ -464,11 +458,11 @@ After the pipeline completes, check the Codecov dashboard to verify that the cov
 
 ---
 
-## Configure Codecov
+## Additional Codecov Configuration
 
 Add a Codecov YAML configuration file to configure the views of your project in Codecov.
 
-* Create a file named `codecov.yml` in the root directory of your project
+* Create a file named `codecov.yml` in the root directory of the Django project
 * Add the necessary configuration settings to the `codecov.yml` file. Below is an example configuration:
 
 ```yaml
