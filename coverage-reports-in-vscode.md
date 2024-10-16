@@ -319,7 +319,7 @@ pip install codecov-cli
 Upload the report to Codecov using the CLI:
 
 ```bash
-codecovcli --verbose upload-process --disable-search --fail-on-error -t 8b1108a3-5bfc-4633-8879-66a978a2a2a0  -F service -f coverage.xml
+codecovcli -t <token>  -F service -f coverage.xml
 ```
 
 This will send the report to Codecov, where it can be visualized and analyzed on the platform’s dashboard.
