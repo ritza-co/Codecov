@@ -22,9 +22,13 @@ To make coverage more visible during development, many code editors (like VS Cod
 
 This visual aid helps you quickly assess the areas of your code that need more test coverage without leaving your development environment.
 
+![VSCode window with Coverage Gutters watch enabled for file](./images/Django/coverage-gutters-extension-view.png)  
+
 #### Codecov
 
 Codecov provides an easy way to upload your coverage reports to a central dashboard, where you can track your project’s coverage over time. Using the Codecov CLI, you can manually upload coverage reports to the service for visualization and analysis.
+
+![VSCode window with Coverage Gutters watch enabled for file](./images/Django/codecov-demo-landing.png)  
 
 ## Installing Coverage.py for coverage reports in Python
 
@@ -249,13 +253,16 @@ You will see colored gutters indicating the coverage:
 * Green: Covered lines
 * Red: Uncovered line
 
-![VSCode window with Coverage Gutters watch enabled for file](.//images/Django/coverage-gutters-extension-view.png)  
+![VSCode window with Coverage Gutters watch enabled for file](./images/Django/coverage-gutters-extension-view-before.png)  
 
-You can see the
+Once you have added coverage of a line in your tests, you will see the gutter update to green and the percentage coverage of the file increase to reflect the coverage of the new test.
+
+![VSCode window with Coverage Gutters watch enabled for file](./images/Django/coverage-gutters-extension-view-after.png)
 
 ---
 
-Everything up to this point is most likely sufficient for a lot of developers or small teams, however as projects grow, complexity increases and there are more hands at work on the codebase, this may not be sufficient any more.
+Everything up to this point is most likely sufficient for a lot of developers or small teams, however as projects grow, complexity increases and there are more hands at work on the codebase, this solution may not be sufficient any more.
+
 Imagine you are working on a large project with multiple contributors and stakeholders. You want to ensure that your codebase maintains high test coverage, but relying solely on the Coverage Gutters extension has some limitations:
 
 * **Limited to Local Environment:** The Coverage Gutters extension only shows coverage in your local VSCode environment. Other team members won't see the same coverage information unless they also generate and load the coverage report.
@@ -404,10 +411,10 @@ You'll need to make some small changes additions to generate and upload the cove
 Replace the the `Install and upgrade packaging tools` section with:
 
 ```yaml
-name: Install and upgrade packaging tools
+- name: Install and upgrade packaging tools
   run: python -m pip install --upgrade pip setuptools wheel
-  - run: python -m pip install -r tests/requirements/py3.txt -e .
-  - run: python -m pip install coverage
+- run: python -m pip install -r tests/requirements/py3.txt -e .
+- run: python -m pip install coverage
 ```
 
 Only one new command was added: `python -m pip install coverage`.
@@ -419,7 +426,7 @@ Then edit the `Run Tests` step with:
   run: coverage run ./tests/runtests.py --settings=test_sqlite
 ```
 
-Upload the coverage report using Codecov’s GitHub Action. Add this step to your GitHub Actions workflow:
+Upload the coverage report using Codecov’s GitHub Action by adding a new step to your GitHub Actions workflow:
 
 ```yaml
 - name: Combine coverage reports
