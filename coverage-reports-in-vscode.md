@@ -6,31 +6,35 @@ To properly showcase the value of using code coverage for your projects, this gu
 
 We will use the [Django](https://www.djangoproject.com/) web framework [repository](https://github.com/django/django) as an example, which already has tests suites and the ability to generate coverage reports and show you how to add functionality to these code coverage tools by using a few more resources.
 
-### Coverage Gutters, CodeCov, and Coverage
+## Coverage Gutters, CodeCov, and Coverage
 
-#### Coverage (Python Library)
+### Coverage (Python Library)
 
-`Coverage.py` is a popular Python library for measuring code coverage. This library provides insights into which parts of your code are being executed during tests and which parts aren't. It supports multiple report formats like terminal output, `HTML`, `XML`, and `JSON` for analysis.
+`Coverage.py` is a Python library for measuring code coverage. This library provides insights into which parts of your code are being executed during tests and which parts aren't. It supports multiple report formats like terminal output, `HTML`, `XML`, and `JSON` for analysis.
 
-This is the library which we will use to generate the coverage report which both Coverage Gutters and Codecov will use to display coverage information.
+This is the library which we will use to generate the coverage report which both Coverage Gutters and Codecov will use to display coverage information later in the tutorial.
 
-#### Coverage Gutters
+### Coverage Gutters
 
-To make coverage more visible during development with VSCode, there is an extension called `Coverage Gutters` that highlights which lines of code are covered by tests. This feature visually indicates uncovered lines directly within your code by highlighting the "gutters" of the file depending on whether the line was run during a test or not.
+To gain visibility of code coverage during development with VSCode, there is an extension called `Coverage Gutters` that highlights which lines of code are/not covered by tests by highlighting the "gutters" of a file that is open.
 
 This visual aid helps you quickly assess the areas of your code that need more test coverage without leaving your development environment.
 
 ![VSCode window with Coverage Gutters watch enabled for file](./images/Django/coverage-gutters-extension-view.png)  
 
-#### Codecov
+### Codecov
 
-Codecov provides a way to upload your coverage reports to a central dashboard allowing you to track your project’s coverage over time. Using the Codecov CLI, allows you to manually upload coverage reports to the service for visualization and analysis.
+Codecov further extends the usefulness of coverage reports by providing a way to upload the coverage reports to a central dashboard, allowing you to track your project’s coverage over time and share this information as widely as required.
+
+The Codecov CLI allows you to manually upload coverage reports for evaluation without having to make any changes to a project.
 
 ![VSCode window with Coverage Gutters watch enabled for file](./images/Django/codecov-demo-landing.png)  
 
 ## Installing Coverage.py for coverage reports in Python
 
 ### Clone Repository
+
+Start by forking the Django web framework [repository](https://github.com/django/django).
 
 In a terminal, clone the forked Django repo:
 
@@ -46,7 +50,7 @@ cd django-repo
 
 ### Install Packages
 
-Create a new virtual environment:
+Create a new virtual environment to isolate the packages for this project from your global packages with:
 
 ```bash
 python -m venv ~/venvs/django
@@ -58,7 +62,7 @@ Activate the virtual environment:
 source ~/venvs/django/bin/activate
 ```
 
-Install the packages found in `package.json` with:
+Install the packages from `package.json` with:
 
 ```bash
 pip install -e .
@@ -90,7 +94,7 @@ coverage run ./tests/runtests.py --settings=test_sqlite
 
 This command uses `Coverage.py` to run the script that the Django repo uses to kick off the test runs with a test database specified by the `--settings=test_sqlite` flag.
 
-You will notice the tests being run, once they are complete, a new file will have appeared in the root directory of the repository: `.coverge`. This file contains the coverage information gathered during the test runs. However, in this form the data is not very useful
+You will notice the tests being run in your terminal, once they are complete, a new file will have appeared in the root directory of the repository: `.coverge`. This file contains the coverage information gathered during the test runs. However, in this form the data is not very useful.
 
 ### Generate Coverage Report
 
@@ -100,12 +104,18 @@ Generate a coverage report in `XML` format by running:
 coverage xml
 ```
 
-You will now see another new file that was created: `coverage.xml` this is the file that contains all the information that `coverage` gathered while the tests were run.
+You will now see another new file that was created: `coverage.xml`. This is the file that contains a formatted view of all the information that `coverage` gathered while the tests were run.
 
 If all you want is the total coverage of the project, you can open the generated `XML` file and find the `line-rate` attribute in the `coverage` tag:
 
 ```xml
 <coverage version="7.6.1" timestamp="1729075463150" lines-valid="196017" lines-covered="64098" line-rate="0.327" branches-covered="0" branches-valid="0" branch-rate="0" complexity="0">
+```
+
+The values for `line-rate` in this file have been normalized, to translate this into a percentage, simple multiply the value by 100:
+
+```
+0.327 * 100 = 32.7%
 ```
 
 To better understand what the report contains, continue with the below or skip to the [Coverage Gutters Extension for VSCode](#coverage-gutters-extension-for-vscode) section to use the report to display coverage information in your VSCode editor.
