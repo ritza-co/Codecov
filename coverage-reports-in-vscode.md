@@ -236,7 +236,7 @@ Search for Coverage Gutters and click Install.
 
 ### Point Coverage Gutters to coverage files
 
-Ensure you have generated a coverage report in a supported format (e.g., coverage.xml or lcov.info).
+Ensure you have generated a coverage report in a supported format (e.g., `coverage.xml` or `lcov.info`).
 If you haven't already, run the following commands from the root of the Django repo to run the tests and generate the `XML` coverage report:
 
 ```bash
@@ -279,7 +279,7 @@ Imagine you are working on a large project with multiple contributors and stakeh
 
 ## Codecov
 
-Codecov is a tool for visualizing code coverage to help developers track the effectiveness of their tests. By integrating it into your CI/CD pipeline, you can ensure continuous monitoring of code coverage metrics across branches and pull requests, encouraging higher code quality.
+Codecov is a tool for visualizing code coverage to help developers and managers to track the effectiveness of their tests. By integrating it into your CI/CD pipeline, you can ensure continuous monitoring of code coverage metrics across branches and pull requests, encouraging higher code quality.
 
 * **Centralized Coverage Reports:**
 Uploads coverage reports to a centralized dashboard accessible by all team members. This ensures everyone has access to the same coverage information without generating reports locally.
@@ -304,13 +304,7 @@ Adjusting these steps will allow you to add Codecov integration with any other a
 
 ### Set Up Codecov
 
-**Create a Codecov Account:**
-[Sign up](https://about.codecov.io/codecov-free-trial/) for a Codecov account and follow the official [quick start guide](https://docs.codecov.com/docs/quick-start) which will walk you through creating an account and installing the GitHub application. Codecov integrates with platforms like GitHub, Bitbucket, and GitLab, allowing seamless integration into your development workflow.
-
-**Install the Codecov GitHub Application:**
-This guide will focus on using GitHub, installing the Codecov GitHub [application](https://github.com/apps/codecov), and provide access to the repository you would like to manage. This will allow Codecov to access your repository and provide automatic reporting on pull requests. Click on the **Configure** button for the relevant repository and follow the instructions to connect to your GitHub using the Codecov Upload token displayed.
-
-![Codecov Upload Token](./images/Django/codecov-configure-django.png)
+[Sign up](https://about.codecov.io/codecov-free-trial/) for Codecov with your GitHub account and follow the prompts which will get you signed in and connected to your github repository which will walk you through creating an account and installing the GitHub application. Once you have reached that point, you can continue with this guide.
 
 **Find Your Codecov Upload Token:**
 Once you’ve created an account and connected your repository, obtain the upload token for your project. You’ll need this token to securely upload coverage reports to Codecov.
