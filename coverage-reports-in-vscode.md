@@ -1,6 +1,6 @@
 # Create and view coverage reports in VSCode
 
-Testing code is a staple of most environments where reliability and predictability are highly valued, however, while tests alone will help ensure that that classes and functions are behaving as expected, they do not give a holistic view of of which parts of the codebase are being tested or not. Code coverage helps bridge this gap by generating a report based on the tests that have been run and which parts of the codebase were run during the testing phase, down to the exact lines of code that were run.
+Testing code is a staple of most environments where reliability and predictability are highly valued, however, while tests alone will help ensure that that classes and functions are behaving as expected, they do not give a holistic view of of which parts of the codebase are being tested or not. Code coverage helps bridge this gap by generating a report based on the tests that have been run and which parts of the codebase were hit during the testing phase, down to the exact lines of code that were run.
 
 To properly showcase the value of using code coverage for your projects, this guide will walk you through setting up and viewing code coverage reports in Visual Studio Code (VS Code) for a project that already has test suites set up. You will learn how to view code coverage in your editor as well as set up continuous monitoring of coverage metrics.
 
@@ -12,7 +12,7 @@ We will use the [Django](https://www.djangoproject.com/) web framework [reposito
 
 `Coverage.py` is a Python library for measuring code coverage. This library provides insights into which parts of your code are being executed during tests and which parts aren't. It supports multiple report formats like terminal output, `HTML`, `XML`, and `JSON` for analysis.
 
-This is the library which we will use to generate the coverage report which both Coverage Gutters and Codecov will use to display coverage information later in the tutorial.
+This is the library which will generate the coverage report that both Coverage Gutters and Codecov use to display coverage information later in the tutorial.
 
 ### Coverage Gutters
 
@@ -92,9 +92,9 @@ Run the tests using coverage:
 coverage run ./tests/runtests.py --settings=test_sqlite
 ```
 
-This command uses `Coverage.py` to run the script that the Django repo uses to kick off the test runs with a test database specified by the `--settings=test_sqlite` flag.
+This command uses `Coverage.py` to run the script that the Django repo uses to kick off the test runs, a test database is specified with the `--settings=test_sqlite` flag.
 
-You will notice the tests being run in your terminal, once they are complete, a new file will have appeared in the root directory of the repository: `.coverge`. This file contains the coverage information gathered during the test runs. However, in this form the data is not very useful.
+You will notice the tests being run in your terminal, once they are complete, a new file will have appeared in the root directory of the repository: `.coverage`. This file contains the coverage information gathered during the test runs. However, in this form the data is not very useful.
 
 ### Generate Coverage Report
 
@@ -104,9 +104,9 @@ Generate a coverage report in `XML` format by running:
 coverage xml
 ```
 
-You will now see another new file that was created: `coverage.xml`. This is the file that contains a formatted view of all the information that `coverage` gathered while the tests were run.
+You will now see another new file that was created: `coverage.xml`. This is the file that contains a formatted view of all the information that `Coverage` gathered while the tests were run.
 
-If all you want is the total coverage of the project, you can open the generated `XML` file and find the `line-rate` attribute in the `coverage` tag:
+If all you want to know is the total coverage of the project, you can open the generated `XML` file and find the `line-rate` attribute in the `coverage` tag:
 
 ```xml
 <coverage version="7.6.1" timestamp="1729075463150" lines-valid="196017" lines-covered="64098" line-rate="0.327" branches-covered="0" branches-valid="0" branch-rate="0" complexity="0">
