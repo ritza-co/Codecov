@@ -1,36 +1,38 @@
-# Create and view coverage reports in VSCode
+# Create and View Coverage Reports in VS Code
 
-Testing code is a staple of most environments where reliability and predictability are highly valued, however, while tests alone will help ensure that that classes and functions are behaving as expected, they do not give a holistic view of of which parts of the codebase are being tested or not. Code coverage helps bridge this gap by generating a report based on the tests that have been run and which parts of the codebase were hit during the testing phase, down to the exact lines of code that were run.
+Testing code is a staple of most environments where reliability and predictability are highly valued. However, while tests alone will help ensure that that classes and functions are behaving as expected, they don't give a holistic view of which parts of the codebase are being tested and which aren't. 
 
-To properly showcase the value of using code coverage for your projects, this guide will walk you through setting up and viewing code coverage reports in Visual Studio Code (VS Code) for a project that already has test suites set up. You will learn how to view code coverage in your editor as well as set up continuous monitoring of coverage metrics.
+Code coverage helps bridge this gap by generating a report based on the tests that have been run and which parts of the codebase were hit during the testing phase, down to the exact lines of code that were run.
 
-We will use the [Django](https://www.djangoproject.com/) web framework [repository](https://github.com/django/django) as an example, which already has tests suites and the ability to generate coverage reports and show you how to add functionality to these code coverage tools by using a few more resources.
+To properly showcase the value of using code coverage for your projects, this guide will walk you through setting up and viewing code coverage reports in Visual Studio Code (VS Code) for a project that already has test suites set up. You will learn how to view code coverage in your editor, as well as set up continuous monitoring of coverage metrics.
 
-## Coverage Gutters, CodeCov, and Coverage
+As an example, we'll use the [Django](https://www.djangoproject.com/) web framework [repository](https://github.com/django/django), which already has tests suites and the ability to generate coverage reports. We'll also show you how to add functionality to these code coverage tools by using a few more resources.
 
-### Coverage (Python Library)
+## Coverage.py, Coverage Gutters, and CodeCov
 
-`Coverage.py` is a Python library for measuring code coverage. This library provides insights into which parts of your code are being executed during tests and which parts aren't. It supports multiple report formats like terminal output, `HTML`, `XML`, and `JSON` for analysis.
+### Coverage.py
 
-This is the library which will generate the coverage report that both Coverage Gutters and Codecov use to display coverage information later in the tutorial.
+Coverage.py is a Python library for measuring code coverage that provides insights into which parts of your code are being executed during tests and which parts aren't. Coverage.py supports multiple report formats, like terminal output, HTML, XML, and JSON, for analysis.
+
+In this tutorial, we'll use Coverage.py to generate a coverage report, then we'll use Coverage Gutters and CodeCov to display coverage information.
 
 ### Coverage Gutters
 
-To gain visibility of code coverage during development with VSCode, there is an extension called `Coverage Gutters` that highlights which lines of code are/not covered by tests by highlighting the "gutters" of a file that is open.
+Coverage Gutters is a VS Code extension that displays real-time code coverage during development. Coverage Gutters highlights the "gutters" of an open file to indicate which lines of code are covered by tests and which aren't.
 
 This visual aid helps you quickly assess the areas of your code that need more test coverage without leaving your development environment.
 
-![VSCode window with Coverage Gutters watch enabled for file](./images/Django/coverage-gutters-extension-view.png)  
+![VS Code window with Coverage Gutters watch enabled for file](./images/Django/coverage-gutters-extension-view.png)  
 
-### Codecov
+### CodeCov
 
-Codecov further extends the usefulness of coverage reports by providing a way to upload the coverage reports to a central dashboard, allowing you to track your project’s coverage over time and share this information as widely as required.
+CodeCov further extends coverage report functionality by enabling you to upload coverage reports to a central dashboard, allowing you to track your project’s coverage over time and share this information as widely as needed.
 
-The Codecov CLI allows you to manually upload coverage reports for evaluation without having to make any changes to a project.
+You can use the CodeCov CLI to manually upload coverage reports for evaluation without making any changes to a project.
 
-![VSCode window with Coverage Gutters watch enabled for file](./images/Django/codecov-demo-landing.png)  
+![VS Code window with Coverage Gutters watch enabled for file](./images/Django/codecov-demo-landing.png)  
 
-## Installing Coverage.py for coverage reports in Python
+## Installing Coverage.py for Coverage Reports in Python
 
 ### Clone Repository
 
